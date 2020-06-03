@@ -7,6 +7,20 @@
 - $ curl -k https://localhost:8443/test
 
 ```
+dependencies {
+	implementation 'org.apache.httpcomponents:httpclient'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+```
+
+
+
+```
 1. Generate server key and self signed server certificate
 	keytool -genkey -alias serverkey -keyalg RSA -storetype PKCS12 -keystore serverkeystore.p12 -ext SAN=dns:abc.com,dns:localhost,ip:127.0.0.1
 	
@@ -30,6 +44,28 @@ server:
     key-store: classpath:serverkeystore.p12
     key-store-password: server
     key-alias: serverkey
+```
+
+```
+$ keytool -genkey -alias serverkey -keyalg RSA -storetype PKCS12 -keystore serverkeystore.p12 -ext SAN=dns:localhost,ip:127.0.0.1
+	키 저장소 비밀번호 입력:
+	새 비밀번호 다시 입력:
+	이름과 성을 입력하십시오.
+	  [Unknown]:  Kiea Seok Kang
+	조직 단위 이름을 입력하십시오.
+	  [Unknown]:  Dev
+	조직 이름을 입력하십시오.
+	  [Unknown]:  TAIN
+	구/군/시 이름을 입력하십시오?
+	  [Unknown]:  Seoul
+	시/도 이름을 입력하십시오.
+	  [Unknown]:  Korea
+	이 조직의 두 자리 국가 코드를 입력하십시오.
+	  [Unknown]:  KR
+	CN=Kiea Seok Kang, OU=Dev, O=TAIN, L=Seoul, ST=Korea, C=KR이(가) 맞습니까?
+	  [아니오]:  y
+
+$ ls -al serverkeystore.p12
 ```
 
 
