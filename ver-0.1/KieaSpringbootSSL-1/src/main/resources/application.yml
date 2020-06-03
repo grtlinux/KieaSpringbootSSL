@@ -1,0 +1,22 @@
+
+
+
+# url: chrome://flags/#allow-insecure-localhost
+# and relaunch
+#
+server:
+  port: 8443
+  ssl:
+    key-alias: https-example
+    key-store-type: JKS
+    key-password: password
+    key-store: classpath:https-example.jks
+
+
+
+
+
+
+
+
+
