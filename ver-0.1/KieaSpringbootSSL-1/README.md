@@ -6,6 +6,13 @@
 
 - $ curl -k https://localhost:8443/test
 
+```
+HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+	public boolean verify(String hostname, SSLSession session) {
+		return true;
+	}
+});
+```
 
 
 
