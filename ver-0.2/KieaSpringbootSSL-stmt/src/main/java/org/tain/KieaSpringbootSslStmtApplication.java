@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.tain.domain.Stmt;
 import org.tain.object.StmtObject;
 import org.tain.repository.StmtRepository;
+import org.tain.utils.CurrentInfo;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,6 +36,7 @@ public class KieaSpringbootSslStmtApplication implements CommandLineRunner {
 	private StmtRepository stmtRepository;
 	
 	private void test01(String[] args) throws Exception {
+		log.info("KANG-20200604 >>>>> " + CurrentInfo.get());
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<StmtObject> lstStmt = objectMapper.readValue(new File("src/main/resources/1000-2.json"), new TypeReference<List<StmtObject>>() {});
 		for (StmtObject stmt : lstStmt) {

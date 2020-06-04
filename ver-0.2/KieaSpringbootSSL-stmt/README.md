@@ -24,6 +24,9 @@ $ curl -k https://localhost:8443/test/home
 - gradle: build.gradle의 dependencies
 ```
 dependencies {
+	// manual
+	implementation 'org.apache.httpcomponents:httpclient'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
