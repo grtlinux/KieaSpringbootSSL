@@ -4,7 +4,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.tain.utils.CurrentInfo;
-import org.tain.utils.SslSkipConfig;
+import org.tain.utils.SkipSSLConfig;
 
 import lombok.extern.java.Log;
 
@@ -35,7 +35,7 @@ public class Test1RestTemplateClient {
 	private static void test02() throws Exception {
 		log.info("KANG-20200604 >>>>> " + CurrentInfo.get());
 		
-		SslSkipConfig.skip();
+		SkipSSLConfig.skip();
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate.exchange("https://localhost:8443/stmts", HttpMethod.GET, null, String.class);
 		String data = response.getBody();
@@ -45,7 +45,7 @@ public class Test1RestTemplateClient {
 	private static void test03() throws Exception {
 		log.info("KANG-20200604 >>>>> " + CurrentInfo.get());
 		
-		RestTemplate restTemplate = SslSkipConfig.getRestTemplate();
+		RestTemplate restTemplate = SkipSSLConfig.getRestTemplate();
 		ResponseEntity<String> response = restTemplate.exchange("https://localhost:8443/stmts/1", HttpMethod.GET, null, String.class);
 		String data = response.getBody();
 		System.out.println(">>>>> " + data);

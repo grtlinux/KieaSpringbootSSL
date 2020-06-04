@@ -14,7 +14,7 @@ import org.apache.http.ssl.TrustStrategy;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-public class SslSkipConfig {
+public class SkipSSLConfig {
 
 	public static void skip() throws Exception {
 		TrustManager[] trustAllCerts = new TrustManager[] {

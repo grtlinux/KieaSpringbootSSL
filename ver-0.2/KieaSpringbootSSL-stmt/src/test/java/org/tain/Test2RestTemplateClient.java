@@ -14,7 +14,7 @@ import org.springframework.util.StopWatch;
 import org.springframework.web.client.RestTemplate;
 import org.tain.domain.Stmt;
 import org.tain.utils.CurrentInfo;
-import org.tain.utils.SslSkipConfig;
+import org.tain.utils.SkipSSLConfig;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -37,7 +37,7 @@ public class Test2RestTemplateClient {
 	
 	public static void main(String[] args) throws Exception {
 		
-		SslSkipConfig.skip();
+		SkipSSLConfig.skip();
 		if (flag) getStmts();
 		if (flag) createStmt();
 		if (flag) getStmtById();
