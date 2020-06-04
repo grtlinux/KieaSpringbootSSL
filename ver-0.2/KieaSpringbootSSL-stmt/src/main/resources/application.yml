@@ -29,6 +29,10 @@ spring:
     suffix: .html
   
   devtools.livereload.enabled: true
+  
+  data.rest.base-path: /api
+  
+  codec.max-in-memory-size: 10MB
 
   servlet.multipart:
       max-file-size: 5GB

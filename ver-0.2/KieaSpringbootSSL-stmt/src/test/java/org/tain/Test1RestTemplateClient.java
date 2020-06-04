@@ -9,7 +9,7 @@ import org.tain.utils.SslSkipConfig;
 import lombok.extern.java.Log;
 
 @Log
-public class TestRestTemplateClient {
+public class Test1RestTemplateClient {
 
 	private static boolean flag = true;
 	

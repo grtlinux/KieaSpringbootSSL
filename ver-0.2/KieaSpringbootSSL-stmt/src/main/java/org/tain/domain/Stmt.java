@@ -50,6 +50,7 @@ public class Stmt {
 	private String stmtKr;
 	
 	@Column(name = "create_at")
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime createAt = LocalDateTime.now();
 	
 	private Stmt(int groupNo, int seqNo, String stmtEn, String stmtKr) {
