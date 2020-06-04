@@ -1,8 +1,6 @@
 
 
 
-# url: chrome://flags/#allow-insecure-localhost
-# and relaunch
 #
 # server:
 #   port: 8443
