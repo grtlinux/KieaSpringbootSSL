@@ -1,14 +1,17 @@
 package org.tain;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,6 +29,9 @@ import org.tain.utils.SkipSSLConfig;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.java.Log;
+
+@Log
 public class TestAuth {
 
 	private static boolean flag = true;
@@ -66,8 +72,9 @@ public class TestAuth {
 				factory.setReadTimeout(5000);
 				RestTemplate restTemplate = new RestTemplate(factory);
 				
-				HttpHeaders header = new HttpHeaders();
-				HttpEntity<?> entity = new HttpEntity<>(header);
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(MediaType.APPLICATION_JSON);
+				HttpEntity<?> entity = new HttpEntity<>(headers);
 				
 				String url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
 				UriComponents uri = UriComponentsBuilder.fromHttpUrl(url+"?"+"key=430156241533f1d058c603178cc3ca0e&targetDt=20120101").build();
@@ -120,11 +127,88 @@ public class TestAuth {
 			Map<?, ?> office = (LinkedHashMap<?,?>) body.get("Office");
 			
 			// jsonInString = mapper.writeValueAsString(mapObject);
+			
+			/*
+			HttpStatus httpStatus = resultMap.getStatusCode();
+			httpStatus.getReasonPhrase();
+			httpStatus.is1xxInformational()
+			httpStatus.is2xxSuccessful()
+			httpStatus.is3xxRedirection()
+			httpStatus.is4xxClientError()
+			httpStatus.is5xxServerError()
+			*/
+			
+			/*
+			HttpHeaders httpHeaders = resultMap.getHeaders();
+			httpHeaders.add(headerName, headerValue);
+			*/
+		}
+		
+		if (!flag) {
+			HttpClient httpClient = HttpClientBuilder.create()
+					.setMaxConnTotal(200)
+					.setMaxConnPerRoute(20)
+					.build();
+		}
+		
+		if (!flag) {
+			HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+			HttpClient httpClient = HttpClientBuilder.create()
+					.setMaxConnTotal(200)
+					.setMaxConnPerRoute(20)
+					.build();
+			httpRequestFactory.setHttpClient(httpClient);
+			RestTemplate restTemplate = new RestTemplateBuilder()
+					.setConnectTimeout(Duration.ofSeconds(5))
+					.setReadTimeout(Duration.ofSeconds(5))
+					.requestFactory(()-> httpRequestFactory)
+					.build();
+			// return restTemplate;
+		}
+		
+		if (!flag) {
+			RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
 		}
 		
 		return null;
 	}
 	
+	// requestSendRest
+	public ResponseEntity<String> requestSendRest(String restUrl, HttpMethod httpMethod, Map<String, Object> parameters) throws Exception {
+		if (log.isLoggable(Level.INFO)) {
+			log.info("==== requestSendRest ====");
+			log.info("restUrl    : " + restUrl);
+			log.info("httpMethod : " + httpMethod);
+			log.info("parameters : " + parameters.toString());
+		}
+		
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		ResponseEntity<String> response = null;
+		
+		if (httpMethod == HttpMethod.GET) {
+			// GET method
+			UriComponents builder = UriComponentsBuilder.fromHttpUrl(restUrl)
+					.queryParam("key1", parameters.get("key1"))
+					.queryParam("key2", parameters.get("key2"))
+					.queryParam("key3", parameters.get("key3"))
+					.build(false);
+			response = restTemplate.exchange(builder.toString(), HttpMethod.GET, new HttpEntity<String>(headers), String.class);
+		} else if (httpMethod == HttpMethod.POST) {
+			// POST method
+			HttpEntity<Map<String, Object>> request = new HttpEntity<>(parameters, headers);
+			response = restTemplate.exchange(restUrl,  HttpMethod.POST, request, String.class);
+		}
+		
+		response.getStatusCodeValue();  // int
+		response.getStatusCode();       // HttpStatus
+		response.getHeaders();          // HttpHeaders
+		response.getBody();             // String
+		
+		return response;
+	}
 	
 	// CustomRestTemplate
 	public RestTemplate getCustomRestTemplate() {
