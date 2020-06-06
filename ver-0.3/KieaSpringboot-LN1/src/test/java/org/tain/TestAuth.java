@@ -38,30 +38,66 @@ public class TestAuth {
 	
 	public static void main(String[] args) throws Exception {
 		SkipSSLConfig.skip();
-		if (flag) test01();
+		
+		if (!flag) test01();
+		if (!flag) test02();
 		
 		if (!flag) exec01();
+		if (flag) {
+			for (int i=0; i < 10000 && i == 0; i++) {
+				System.out.println("################################# (" + i + ") ###########################");
+				try {
+					exec01();
+				} catch (Exception e) {
+					System.err.println(">>>>> " + e.getMessage());
+				}
+				try { Thread.sleep(60 * 1000); } catch (InterruptedException e) {}
+			}
+		}
 	}
 
 	private static final String POST_AUTH_ENDPOINT_URL = "https://test-public.lightnetapis.io/v1/auth";
 	
-	private static void test01() throws Exception {
+	private static void exec01() throws Exception {
 		if (flag) {
 			System.out.println("----------------------------------------");
 			HttpHeaders headers = new HttpHeaders();
-			headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+			//headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			
+			Map<String, Object> parameters = new HashMap<>();
+			parameters.put("clientId", "pkey_tUsjZ1aL8UhvJnNibssfEGo6Y4MhSzXT");
+			parameters.put("secret", "skey_D1ZL5MW4bKW7clFW2Vz3jH8sm2k7FUfWiu5wh1aL8Uivo6RMNOa74wxfSYo5ylmk");
+			
+			HttpEntity<Map<String,Object>> request = new HttpEntity<>(parameters, headers);
 			
 			RestTemplate restTemplate = new RestTemplate();
-			ResponseEntity<String> result = restTemplate.exchange(POST_AUTH_ENDPOINT_URL, HttpMethod.GET, entity, String.class);
-			System.out.println(">>>>> " + result);
+			ResponseEntity<String> response = restTemplate.exchange(POST_AUTH_ENDPOINT_URL, HttpMethod.POST, request, String.class);
+			
+			//response.getStatusCodeValue();
+			//response.getStatusCode();
+			//response.getHeaders();
+			//response.getBody();
+			
+			System.out.println(">>>>> " + response.getHeaders().get("AccessToken").get(0));
+			System.out.println(">>>>> " + response);
+		}
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static void test01() throws Exception {
+		if (flag) {
 		}
 	}
 	
 	// REF: https://vmpo.tistory.com/27
 	//@RestController
 	@GetMapping("/abcdef")
-	private static String exec01() throws Exception {
+	private static String test02() throws Exception {
 		if (flag) {
 			Map<String, Object> result = new HashMap<>();
 			String jsonInString = "";
