@@ -1,0 +1,33 @@
+/*
+DROP TABLE IF EXISTS employee;
+
+CREATE TABLE employee (
+    id INT AUTO_INCREMENT	PRIMARY KEY,
+    name VARCHAR(250) NOT NULL,
+    desc VARCHAR(250) NOT NULL
+);
+
+INSERT INTO employee (name, desc) VALUES
+    ('Aliko'    , 'Billionaire Industrialist'),
+    ('Bill'     , 'Billionaire Tech Entrepreneur'),
+    ('Folrunsho', 'Billionaire Oil Magnate')
+;
+
+call next value for hibernate_sequence;
+
+*/
+insert into EMPLOYEE(id, name, desc) values ( hibernate_sequence.nextval, 'name 1', 'desc 1' );
+insert into EMPLOYEE(id, name, desc) values ( hibernate_sequence.nextval, 'name 2', 'desc 2' );
+insert into EMPLOYEE(id, name, desc) values ( hibernate_sequence.nextval, 'name 3', 'desc 3' );
+insert into EMPLOYEE(id, name, desc) values ( hibernate_sequence.nextval, 'name 4', 'desc 4' );
+insert into EMPLOYEE(id, name, desc) values ( hibernate_sequence.nextval, 'name 5', 'desc 5' );
+
+
+/*
+create sequence employee_seq;
+CREATE SEQUENCE SEQ_PRIMARYKEY START WITH 1 INCREMENT BY 1;
+
+@SequenceGenerator(name="seq_PK",sequenceName="SEQ_PRIMARYKEY")
+@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_PK")
+@Column(name="ID", nullable=false, unique=true, length=11)
+*/

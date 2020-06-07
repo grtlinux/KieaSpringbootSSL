@@ -1,0 +1,64 @@
+
+
+
+spring:
+  h2.console:
+    enabled: true
+    path: /h2
+    settings:
+      trace: false
+      web-allow-others: true
+  
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: update
+  
+  thymeleaf:
+    cache: false
+    # if real, true
+    enabled: true
+    encoding: utf-8
+    prefix: /WEB-INF/views
+    # prefix: classpath:templates/
+    suffix: .html
+  
+  devtools.livereload.enabled: true
+  
+  data.rest.base-path: /api
+  
+  codec.max-in-memory-size: 10MB
+  
+  servlet.multipart:
+    max-file-size: 5GB
+    max-request-size: 5GB
+
+# SSL JOB-1
+# server:
+#   port: 8443
+#   ssl:
+#     key-alias: https-example
+#     key-store-type: JKS
+#     key-password: password
+#     key-store: classpath:https-example.jks
+
+# SSL JOB-2
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:serverkeystore.p12
+    key-store-type: PKCS12
+    key-store-password: server
+    key-alias: serverkey
+
+
+
+
+
