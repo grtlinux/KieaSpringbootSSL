@@ -13,18 +13,19 @@ import org.tain.utils.SkipSSLConfig;
 import lombok.extern.java.Log;
 
 @Log
-public class RestTemplateTest01 {
+public class TestRestTemplateTest01 {
 
 	private static boolean flag = true;
 	
 	public static void main(String[] args) throws Exception {
-		if (flag) stmts_get_one();
-		if (flag) stmts_get_list();
+		if (flag) test_get();
 	}
 
-	private static void stmts_get_one() throws Exception {
+	private static void test_get() throws Exception {
 		if (flag) {
-			String endpoint = "https://localhost:8443/api/stmts/3";
+			String endpoint;
+			endpoint = "https://localhost:8443/test/";
+			endpoint = "https://localhost:8443/test/test";
 			
 			SkipSSLConfig.skip();
 			
@@ -37,27 +38,8 @@ public class RestTemplateTest01 {
 			
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> response = restTemplate.exchange(uriComponents.toString(), HttpMethod.GET, httpEntity, String.class);
-			log.info("KANG-20200607 >>>>> " + response);
-		}
-	}
-
-	private static void stmts_get_list() throws Exception {
-		if (flag) {
-			String endpoint = "https://localhost:8443/api/stmts";
-			
-			SkipSSLConfig.skip();
-			
-			HttpHeaders httpHeaders = new HttpHeaders();
-			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity<String> httpEntity = new HttpEntity<>(httpHeaders);
-			
-			UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(endpoint)
-					.queryParam("name", "강석")
-					.build();
-			
-			RestTemplate restTemplate = new RestTemplate();
-			ResponseEntity<String> response = restTemplate.exchange(uriComponents.toString(), HttpMethod.GET, httpEntity, String.class);
-			log.info("KANG-20200607 >>>>> " + response);
+			log.info("KANG-20200607 >>>>> response : " + response);
+			log.info("KANG-20200607 >>>>> response.getBody() : " + response.getBody());
 		}
 	}
 }
