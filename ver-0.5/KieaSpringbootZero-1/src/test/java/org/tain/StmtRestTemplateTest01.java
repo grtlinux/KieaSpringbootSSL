@@ -37,6 +37,9 @@ public class StmtRestTemplateTest01 {
 	}
 
 	private static void stmts_get_one() throws Exception {
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start();
+		
 		if (flag) {
 			String endpoint = "https://localhost:8443/api/stmts/3";
 			
@@ -54,9 +57,15 @@ public class StmtRestTemplateTest01 {
 			log.info("KANG-20200607 >>>>> " + response);
 			log.info("KANG-20200607 >>>>> response.getBody() : " + response.getBody());
 		}
+		
+		stopWatch.stop();
+		System.out.println(">>>>> " + stopWatch.prettyPrint());
 	}
 
 	private static void stmts_get_list() throws Exception {
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start();
+		
 		if (flag) {
 			String endpoint = "https://localhost:8443/api/stmts";
 			
@@ -75,6 +84,9 @@ public class StmtRestTemplateTest01 {
 			log.info("KANG-20200607 >>>>> " + response);
 			log.info("KANG-20200607 >>>>> response.getBody() : " + response.getBody());
 		}
+		
+		stopWatch.stop();
+		System.out.println(">>>>> " + stopWatch.prettyPrint());
 	}
 
 	private static void stmts_get_rest_to_list_of_stmt() throws Exception {
