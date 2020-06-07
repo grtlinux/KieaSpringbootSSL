@@ -18,7 +18,29 @@ public class TestRestTemplateTest01 {
 	private static boolean flag = true;
 	
 	public static void main(String[] args) throws Exception {
-		if (flag) test_get();
+		if (flag) index_get();
+		if (!flag) test_get();
+	}
+
+	private static void index_get() throws Exception {
+		if (flag) {
+			String endpoint;
+			endpoint = "https://localhost:8443/";
+			
+			SkipSSLConfig.skip();
+			
+			HttpHeaders httpHeaders = new HttpHeaders();
+			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> httpEntity = new HttpEntity<>(httpHeaders);
+			
+			UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(endpoint)
+					.build();
+			
+			RestTemplate restTemplate = new RestTemplate();
+			ResponseEntity<String> response = restTemplate.exchange(uriComponents.toString(), HttpMethod.GET, httpEntity, String.class);
+			if (!flag) log.info("KANG-20200607 >>>>> response : " + response);
+			if (flag) log.info("KANG-20200607 >>>>> response.getBody() : " + response.getBody());
+		}
 	}
 
 	private static void test_get() throws Exception {
@@ -38,8 +60,8 @@ public class TestRestTemplateTest01 {
 			
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> response = restTemplate.exchange(uriComponents.toString(), HttpMethod.GET, httpEntity, String.class);
-			log.info("KANG-20200607 >>>>> response : " + response);
-			log.info("KANG-20200607 >>>>> response.getBody() : " + response.getBody());
+			if (!flag) log.info("KANG-20200607 >>>>> response : " + response);
+			if (flag) log.info("KANG-20200607 >>>>> response.getBody() : " + response.getBody());
 		}
 	}
 }
