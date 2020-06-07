@@ -16,7 +16,7 @@ import org.tain.utils.CurrentInfo;
 import lombok.extern.java.Log;
 
 @Controller
-@RequestMapping(value = "")
+@RequestMapping(value = "/index")
 @Log
 public class IndexController {
 
