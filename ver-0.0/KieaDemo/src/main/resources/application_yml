@@ -31,7 +31,10 @@ spring:
   
   devtools.livereload.enabled: true
   
-  data.rest.base-path: /api
+  data.rest:
+      base-path: /api
+      default-page-size: 10
+      max-page-size: 10
   
   codec.max-in-memory-size: 10MB
   
