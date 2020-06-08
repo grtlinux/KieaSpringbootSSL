@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		CharacterEncodingFilter filter = new CharacterEncodingFilter();
 		http
 			.authorizeRequests()
-				.antMatchers("/", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**", "/console/**", "/h2/**").permitAll()
+				.antMatchers("/", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**", "/console/**", "/h2/**", "/v1/**", "/v1.1/**").permitAll()
 				.antMatchers("/facebook").hasAuthority(SocialType.FACEBOOK.getRoleType())
 				.antMatchers("/google").hasAuthority(SocialType.GOOGLE.getRoleType())
 				.antMatchers("kakao").hasAuthority(SocialType.KAKAO.getRoleType())
