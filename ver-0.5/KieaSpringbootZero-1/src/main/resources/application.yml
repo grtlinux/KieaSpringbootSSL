@@ -34,6 +34,23 @@ spring:
       default-page-size: 10
       max-page-size: 10
 
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 881218558153-ndr868i68rlofoo4l2gb488ksabi5q23.apps.googleusercontent.com
+            client-secret: kq6zIo0myJotHK5_0irhtYnW
+          facebook:
+            client-id: 465358593799840
+            client-secret: a37286e3dae00dcdce628f40dfe363f5
+custom:
+  oauth2:
+    kakao:
+      client-id: 1b8ff676ae01724ed77437f98d399543
+
+
 env:
   test:
     servers:
@@ -49,7 +66,7 @@ env:
   data-json-file: src/main/resources/1000-2.json
 
 ##############################################################
-spring.profiles.active: local-https
+spring.profiles.active: local-http
 
 ---
 spring:
