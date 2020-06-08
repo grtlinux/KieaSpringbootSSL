@@ -15,15 +15,17 @@ import lombok.extern.java.Log;
 @Log
 public class InterceptorConfig implements WebMvcConfigurer{
 
+	private static boolean flag = true;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		log.info("KANG-20200607 >>>>> " + CurrentInfo.get() + " - " + LocalDateTime.now());
 		
-		registry.addInterceptor(new IndexInterceptor())
+		if (!flag) registry.addInterceptor(new IndexInterceptor())
 			.addPathPatterns("/**")
 			.excludePathPatterns("/login/**", "/user/**", "/test/**", "/stmt/**", "/v1/**");
 		
-		registry.addInterceptor(new TestInterceptor())
+		if (flag) registry.addInterceptor(new TestInterceptor())
 			.addPathPatterns("/test/**")
 			.excludePathPatterns("/test/login/**", "/test/user/**");
 		
